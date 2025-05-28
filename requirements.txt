@@ -7,3 +7,5 @@ langchain-ollama
 langchain-groq
 faiss-cpu
 pypdf
+langchain_chroma
+langchain-huggingface
