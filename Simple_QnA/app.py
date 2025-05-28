@@ -21,7 +21,7 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 ## Streamlit framework
-st.title("Langchain demo with LLAMA3.2")
+st.title("Simple Langchain demo with LLAMA3.2")
 input_text = st.text_input("What is in your mind?")
 
 ##Ollama LLAMMA3.2 Model
