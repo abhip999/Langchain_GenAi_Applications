@@ -1,12 +1,4 @@
-import asyncio
-import sys
-
-if sys.platform == "darwin" and sys.version_info >= (3, 10):
-    try:
-        asyncio.get_running_loop()
-    except RuntimeError:
-        asyncio.set_event_loop(asyncio.new_event_loop())
-
+import torch
 
 import streamlit as st
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
@@ -24,6 +16,8 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+torch.classes.__path__ = [] # add this line to manually set it to empty.
+
 os.environ['HF_TOKEN'] = os.getenv("HF_TOKEN")
 embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
@@ -36,7 +30,7 @@ api_key = st.text_input("Enter your groq API Key: ", type="password")
 
 # check if groq API key is provided
 if api_key:
-    llm = ChatGroq(groq_api_key=api_key,model_name="Gemma2-9b-It")
+    llm = ChatGroq(groq_api_key=api_key,model_name="gemma2-9b-it")
 
     # chat interface
     session_id = st.text_input("Session_ID", value="default_session")
@@ -125,7 +119,7 @@ if api_key:
                 }, # constructs a key "abc123" in `store`
             )
             st.write(st.session_state.store)
-            st.write("Assitant", response['answer'])
+            st.write("Assitant:", response['answer'])
             st.write("Chat History", session_history.messages)
 
 else:
